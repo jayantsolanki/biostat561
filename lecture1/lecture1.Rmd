@@ -1,13 +1,14 @@
 ---
-title: "Computational Skills for Biostatistics I: Lecture 1"
-author: Amy Willis, Biostatistics, UW
+title: 'Computational Skills for Biostatistics I: Lecture 1'
+author: "Amy Willis, Biostatistics, UW"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  ioslides_presentation: default
   beamer_presentation:
+    fig_caption: no
     includes:
       in_header: ../header_pagenrs.tex
-    fig_caption: no
-
+  slidy_presentation: default
 ---
 
 ```{r setup, include=FALSE}

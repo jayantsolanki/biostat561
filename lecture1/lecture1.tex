@@ -1,0 +1,2059 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[ignorenonframetext,]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+\centering
+\begin{beamercolorbox}[sep=16pt,center]{part title}
+  \usebeamerfont{part title}\insertpart\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+\centering
+\begin{beamercolorbox}[sep=12pt,center]{part title}
+  \usebeamerfont{section title}\insertsection\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{part title}
+  \usebeamerfont{subsection title}\insertsubsection\par
+\end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Computational Skills for Biostatistics I: Lecture 1},
+            pdfauthor={Amy Willis, Biostatistics, UW},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber%
+  %\,/\,\inserttotalframenumber
+  \kern1em\vskip2pt%
+}
+\usepackage{bbm}
+\usepackage{soul}
+% \usepackage{hyperref}
+% \usepackage{xcolor}
+% \hypersetup{colorlinks = true, linkcolor = red, urlcolor = red}
+
+\title{Computational Skills for Biostatistics I: Lecture 1}
+\author{Amy Willis, Biostatistics, UW}
+\date{07 April, 2021}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Why bother?}
+\protect\hypertarget{why-bother}{}
+
+\begin{itemize}
+\tightlist
+\item
+  As a statistician working in any capacity, you will need to know some
+  programming
+\item
+  As a MS/PhD student in Biostats, you will do some serious programming!
+\item
+  Good programming practices will help you with research, collaborating,
+  your job search, and your long-term career
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Welcome!}
+\protect\hypertarget{welcome}{}
+
+Biost 561 covers modern/advanced R and other programming skills
+
+\begin{itemize}
+\tightlist
+\item
+  It is designed for graduate students in Biostatistics, and is tailored
+  to their statistics and programming background
+\item
+  If you don't know a lot of R already, you will learn it today and in
+  Homework 1
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Structure and expectations}
+\protect\hypertarget{structure-and-expectations}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Weekly lectures
+\item
+  Weekly homeworks
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Posted within 24 hours of lecture
+  \item
+    Due at the beginning of lecture via GitHub classroom
+  \end{itemize}
+\item
+  Weekly office hours: HSB F-657, Mondays 2:30-3:30
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Resources}
+\protect\hypertarget{resources}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Available via GitHub \url{github.com/adw96/biostat561}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Syllabus
+  \item
+    Slides
+  \item
+    Homeworks (approximately 10)
+  \item
+    Policies: inclusivity, accessibility, academic integrity
+  \end{itemize}
+\item
+  Available via GitHub classroom
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Homework submission
+  \end{itemize}
+\item
+  Available via email
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Announcements
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Expectations}
+\protect\hypertarget{expectations}{}
+
+What you should expect of me
+
+\begin{itemize}
+\tightlist
+\item
+  I will make your learning a priority
+\item
+  I will give you timely feedback on your homeworks
+\item
+  I will treat you as adults, I will treat you with respect
+\item
+  I will talk slowly (tell me if I'm speaking too fast!)
+\item
+  I will try to make class engaging and fun!
+\item
+  I will teach you the way that I program, and (contemporary)
+  alternatives
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Expectations}
+\protect\hypertarget{expectations-1}{}
+
+What I will expect of you
+
+\begin{itemize}
+\tightlist
+\item
+  You make attending class a priority
+\item
+  You submit your best work for homework
+
+  \begin{itemize}
+  \tightlist
+  \item
+    your own work, on time
+  \end{itemize}
+\item
+  You treat me, guest lecturers, and each other with respect
+\item
+  You engage in classroom discussion
+\item
+  You learn from the class; you learn to teach yourself
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assessment}
+\protect\hypertarget{assessment}{}
+
+The only assessment in this course is homework.
+
+\begin{itemize}
+\tightlist
+\item
+  10 or fewer homeworks
+\item
+  You must submit a good attempt at every homework to receive credit for
+  this course
+\end{itemize}
+
+I won't record attendance, but if you consistently do not show up you
+will not receive credit.
+
+\end{frame}
+
+\begin{frame}{About me}
+\protect\hypertarget{about-me}{}
+
+\includegraphics[width=3.125in,height=\textheight]{../images/github.png}
+\includegraphics[width=1.5625in,height=\textheight]{../images/friendly.png}
+
+\end{frame}
+
+\begin{frame}{About you}
+\protect\hypertarget{about-you}{}
+
+Everyone is here with different backgrounds in programming and
+computing. Let's get statistical!
+
+Responses to class survey:
+
+\begin{itemize}
+\tightlist
+\item
+  73\% Unix, 27\% Windows users
+\item
+  100\% have used R, RStudio (data frames, loops)
+\item
+  \textasciitilde{}40\% pipe, write packages
+\item
+  18\% use git for \textbf{version control}
+\end{itemize}
+
+(n=11 out of possible 13) Is data missing-not-at-random?
+
+\end{frame}
+
+\begin{frame}[fragile]{Today's class}
+\protect\hypertarget{todays-class}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Version control with git
+\item
+  Intro to base \texttt{R} (types, methods)
+\item
+  RStudio \& RStudio projects
+\item
+  Writing loops and functions
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Version control}
+\protect\hypertarget{version-control}{}
+
+What problems can you see with the following approach to version
+control?
+
+\begin{itemize}
+\tightlist
+\item
+  papersims-v1.R
+\item
+  papersims-v2.R
+\item
+  papersims-thea-comments.R
+\item
+  papersims-hellfire.R
+\item
+  papersims-v5.R
+\item
+  papersims-final.R
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Version control}
+\protect\hypertarget{version-control-1}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  How many versions until this becomes intractable?
+\item
+  \emph{Date Modified} sorting does not always help
+\item
+  Tracking changes is very difficult; reversion is even harder
+\item
+  Exponential file number growth with multiple collaborators!
+\item
+  The dreaded computer crash
+\end{enumerate}
+
+Dropbox can help with some of these issues, but generally not (3) or
+(4)!
+
+\end{frame}
+
+\begin{frame}{Git}
+\protect\hypertarget{git}{}
+
+\begin{itemize}
+\tightlist
+\item
+  git is an open source version control system (VCS):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Track changes to code and documents. \emph{What} changes by
+    \emph{who} and \emph{when}?
+  \item
+    Share code and collaborate
+  \end{itemize}
+\item
+  GitHub is a website that uses git's VCS:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Collaborate with others effectively
+  \item
+    Distribute code
+  \item
+    Solicit improvements (\emph{pull} requests)
+  \item
+    Track issues \& feature requests
+  \item
+    (Build your coding portfolio!)
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Git with R}
+\protect\hypertarget{git-with-r}{}
+
+git \& GitHub are popular with R developers
+
+\begin{itemize}
+\tightlist
+\item
+  Integration with RStudio
+\item
+  Easy distribution of packages
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Circumvents CRAN moderators; for better or worse
+  \end{itemize}
+\item
+  Always get the latest features (\texttt{devtools};
+  \texttt{install\_github})
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Git with life}
+\protect\hypertarget{git-with-life}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Collaborations: syncing across multiple computers
+\item
+  Portability: including for you
+\item
+  TODOs as Issues: including your own
+\item
+  Teams: \texttt{fork}, \texttt{pull} request
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Like a package but hate the default figures? \texttt{fork} it, edit
+    it, use your own version!
+  \end{itemize}
+\item
+  Visibility: social/professional network
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Getting started with git}
+\protect\hypertarget{getting-started-with-git}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Download/update: \url{git-scm.com/downloads}
+\item
+  Intro: \url{guides.github.com/activities/hello-world}
+\item
+  Do this with Homework 1 and a blank pdf, not hello-world
+\item
+  Questions? Error messages? The internet is a great resource!
+\item
+  \emph{git is a great habit to get into early! Start now!}
+\end{itemize}
+
+Homework 1 Question 0 will get you started using git, GitHub and GitHub
+Classroom.
+
+\end{frame}
+
+\begin{frame}[fragile]{Getting started with git}
+\protect\hypertarget{getting-started-with-git-1}{}
+
+The workflow that I want you to follow for downloading the latest
+lecture notes is \texttt{git\ pull} (see Question 0 of Homework 1)
+
+The standard workflow for uploading a new file or updating an old one
+(e.g., for your homework submission):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{git pull}
+\NormalTok{git add hw1}\OperatorTok{-}\NormalTok{response.pdf}
+\NormalTok{git commit }\OperatorTok{-}\NormalTok{a }\OperatorTok{-}\NormalTok{m }\StringTok{'question 2 part b response'}
+\NormalTok{git push}
+\end{Highlighting}
+\end{Shaded}
+
+You must have a git repository set up already to do this (e.g.~with
+\texttt{git\ init} or \texttt{git\ clone\ ...})
+
+\end{frame}
+
+\begin{frame}[fragile]{R}
+\protect\hypertarget{r}{}
+
+Why \texttt{R}?
+
+\end{frame}
+
+\begin{frame}[fragile]{R}
+\protect\hypertarget{r-1}{}
+
+A fancy calculator
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sqrt}\NormalTok{(}\DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.071068
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{log}\NormalTok{(}\FloatTok{2.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9932518
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{log}\NormalTok{(}\FloatTok{2.7}\NormalTok{, }\DataTypeTok{base=}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4313638
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4.333333
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Object classes}
+\protect\hypertarget{object-classes}{}
+
+There are many different \emph{classes} of objects in R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{)}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(y)}
+\KeywordTok{c}\NormalTok{(}\KeywordTok{class}\NormalTok{(x), }\KeywordTok{class}\NormalTok{(y), }\KeywordTok{class}\NormalTok{(z), }\KeywordTok{class}\NormalTok{(c))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "numeric"   "character" "factor"    "function"
+\end{verbatim}
+
+Others include \texttt{logical} (\texttt{TRUE}, \texttt{FALSE}), complex
+numbers\ldots{}
+
+\end{frame}
+
+\begin{frame}[fragile]{Object classes}
+\protect\hypertarget{object-classes-1}{}
+
+\texttt{is.{[}class{]}} asks about the class.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{)}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(y)}
+\KeywordTok{is.numeric}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.factor}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.numeric}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Object classes}
+\protect\hypertarget{object-classes-2}{}
+
+You can define new classes in multiple ways (\textbf{S3} is the most
+common).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(x) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"my_new_class"}\NormalTok{, }\KeywordTok{class}\NormalTok{(x))}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 2 5
+## attr(,"class")
+## [1] "my_new_class" "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.numeric}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.my_new_class}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in is.my_new_class(x): could not find function "is.my_new_class"
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}{Data structures}
+\protect\hypertarget{data-structures}{}
+
+R can store data in various \emph{objects}
+
+\begin{itemize}
+\tightlist
+\item
+  vector: one-dimensional, all data points have same mode
+\item
+  matrix: two-dimensional, all data points have same mode
+\item
+  array: n-dimensional, all data points have same mode
+\item
+  data frame: two-dimensional, all data points in same column have same
+  mode
+\item
+  list: one-dimensional, elements can be of any type
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Matrices}
+\protect\hypertarget{matrices}{}
+
+Matrices vs data frames: all elements have same mode in matrices
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,] "1"  "a" 
+## [2,] "2"  "b"
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Matrices}
+\protect\hypertarget{matrices-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aa <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{, }\DataTypeTok{byrow =}\NormalTok{ T)}
+\NormalTok{bb <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{aa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5 2.0
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Matrices}
+\protect\hypertarget{matrices-2}{}
+
+Be very careful with matrix operations!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aa }\OperatorTok{%*%}\StringTok{ }\NormalTok{bb }\CommentTok{# matrix multiplication}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]
+## [1,]  4.5
+## [2,] 11.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aa }\OperatorTok{*}\StringTok{ }\NormalTok{bb }\CommentTok{# careful! pointwise}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]  0.5    1
+## [2,]  6.0   10
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Data frames}
+\protect\hypertarget{data-frames}{}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   c.1..2. c..a....b..
+## 1       1           a
+## 2       2           b
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dd <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"ID"}\NormalTok{=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\StringTok{"name"}\NormalTok{=}\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{)) }\CommentTok{# better}
+\NormalTok{dd}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   ID name
+## 1  1    a
+## 2  2    b
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(dd) }\CommentTok{# structure: compact info about frame & variables}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    2 obs. of  2 variables:
+##  $ ID  : num  1 2
+##  $ name: Factor w/ 2 levels "a","b": 1 2
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Vectorization}
+\protect\hypertarget{vectorization}{}
+
+Vectorization: doing many calculations with a single command
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{x}\OperatorTok{^}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0.25  4.00  9.00 36.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{x}\OperatorTok{^}\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.125 2.000 9.000 6.000
+\end{verbatim}
+
+\texttt{c()} is for ``combine''
+
+\end{frame}
+
+\begin{frame}[fragile]{Vectorization}
+\protect\hypertarget{vectorization-1}{}
+
+The slow way: with loops. Avoid where possible!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# initialise empty vector:}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\DataTypeTok{mode=}\StringTok{"numeric"}\NormalTok{, }\DataTypeTok{length=}\DecValTok{4}\NormalTok{)}
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0 0 0 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{) \{}
+\NormalTok{  z[i] <-}\StringTok{ }\NormalTok{x[i]}\OperatorTok{^}\NormalTok{y[i]}
+\NormalTok{\}}
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.125 2.000 9.000 6.000
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Modes versus classes}
+\protect\hypertarget{modes-versus-classes}{}
+
+R has different ``mode''s as well as different ``class''es
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{numeric}, \texttt{character}, \texttt{function}, \texttt{list}
+\item
+  Mode concerns storage; you will deal with class moss often than mode
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Recycling}
+\protect\hypertarget{recycling}{}
+
+In many tasks, R recycles elements of one input until it has enough to
+match the other
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5 2.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aa }\OperatorTok{+}\StringTok{ }\NormalTok{bb }\CommentTok{# vectors are treated as columns!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]  1.5  2.5
+## [2,]  5.0  7.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cc <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{aa }\OperatorTok{+}\StringTok{ }\NormalTok{cc }\CommentTok{# the silent killer}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    2    5
+## [2,]    5    9
+\end{verbatim}
+
+Be careful!
+
+\end{frame}
+
+\begin{frame}[fragile]{Speed comparison}
+\protect\hypertarget{speed-comparison}{}
+
+Vectorization can cause major speed-ups, because task is optimised and
+precompiled in C/Fortran, not interpreted R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dd <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\FloatTok{1e6}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{1000}\NormalTok{)}
+\KeywordTok{cor}\NormalTok{(dd)}
+
+\NormalTok{ee <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{1000}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{1000}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{1000}\NormalTok{) \{}
+\NormalTok{    ee[i, j] <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(ee[, i], ee[, j])}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Speed up factor of vectorization: 36!
+
+\end{frame}
+
+\begin{frame}[fragile]{Lists}
+\protect\hypertarget{lists}{}
+
+Lists store information of many different types. Names are optional, but
+recommended!
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amy <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{office.num =} \DecValTok{657}\NormalTok{, }\DataTypeTok{pets =} \OtherTok{TRUE}\NormalTok{,}
+            \DataTypeTok{pets.names =} \KeywordTok{c}\NormalTok{(}\StringTok{"Princess Jaws"}\NormalTok{, }\StringTok{"Friendly"}\NormalTok{, }\StringTok{"Mohawk"}\NormalTok{,}
+                           \StringTok{"Canada"}\NormalTok{, }\StringTok{"USA"}\NormalTok{, }\StringTok{"Regina George"}\NormalTok{),}
+            \DataTypeTok{is.cat =} \KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\KeywordTok{rep}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\DecValTok{5}\NormalTok{)))}
+\NormalTok{amy}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $office.num
+## [1] 657
+## 
+## $pets
+## [1] TRUE
+## 
+## $pets.names
+## [1] "Princess Jaws" "Friendly"      "Mohawk"        "Canada"       
+## [5] "USA"           "Regina George"
+## 
+## $is.cat
+## [1]  TRUE FALSE FALSE FALSE FALSE FALSE
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Lists}
+\protect\hypertarget{lists-1}{}
+
+Double square brackets pull out individual elements. Single square
+brackets pull out subsets of the list.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amy}\OperatorTok{$}\NormalTok{pets.names}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Princess Jaws" "Friendly"      "Mohawk"        "Canada"       
+## [5] "USA"           "Regina George"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amy[[}\DecValTok{3}\NormalTok{]] }\CommentTok{# subset third element}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Princess Jaws" "Friendly"      "Mohawk"        "Canada"       
+## [5] "USA"           "Regina George"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amy[}\DecValTok{3}\NormalTok{] }\CommentTok{# third element -- a list!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $pets.names
+## [1] "Princess Jaws" "Friendly"      "Mohawk"        "Canada"       
+## [5] "USA"           "Regina George"
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Lists}
+\protect\hypertarget{lists-2}{}
+
+Double square brackets pull out individual elements. Single square
+brackets pull out subsets of the list.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amy[}\DecValTok{2}\OperatorTok{:}\DecValTok{3}\NormalTok{] }\CommentTok{# second and third elements -- a list!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $pets
+## [1] TRUE
+## 
+## $pets.names
+## [1] "Princess Jaws" "Friendly"      "Mohawk"        "Canada"       
+## [5] "USA"           "Regina George"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amy[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $pets
+## [1] TRUE
+## 
+## $pets.names
+## [1] "Princess Jaws" "Friendly"      "Mohawk"        "Canada"       
+## [5] "USA"           "Regina George"
+## 
+## $is.cat
+## [1]  TRUE FALSE FALSE FALSE FALSE FALSE
+\end{verbatim}
+
+Using names is more robust than indices
+
+\end{frame}
+
+\begin{frame}[fragile]{Generic functions}
+\protect\hypertarget{generic-functions}{}
+
+The same function can apply to objects of different classes. How does R
+know what to do?
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{c}\NormalTok{(}\KeywordTok{class}\NormalTok{(log), }\KeywordTok{class}\NormalTok{(trees))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "function"   "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{layout}\NormalTok{(}\KeywordTok{t}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{), }\DataTypeTok{widths =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{)); }\KeywordTok{plot}\NormalTok{(log); }\KeywordTok{plot}\NormalTok{(trees)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{lecture1_files/figure-beamer/unnamed-chunk-17-1.pdf}
+\includegraphics{lecture1_files/figure-beamer/unnamed-chunk-17-2.pdf}
+
+\end{frame}
+
+\begin{frame}[fragile]{Generic functions}
+\protect\hypertarget{generic-functions-1}{}
+
+\texttt{plot} is a \emph{generic} function. Generic functions don't do
+anything themselves -- they call \emph{methods}, which are tailored to
+the class.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## function (x, y, ...) 
+## UseMethod("plot")
+## <bytecode: 0x06f63e20>
+## <environment: namespace:graphics>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{methods}\NormalTok{(}\StringTok{"plot"}\NormalTok{) }\CommentTok{# lists all types R knows how to plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] plot.acf*           plot.data.frame*    plot.decomposed.ts*
+##  [4] plot.default        plot.dendrogram*    plot.density*      
+##  [7] plot.ecdf           plot.factor*        plot.formula*      
+## [10] plot.function       plot.hclust*        plot.histogram*    
+## [13] plot.HoltWinters*   plot.isoreg*        plot.lm*           
+## [16] plot.medpolish*     plot.mlm*           plot.ppr*          
+## [19] plot.prcomp*        plot.princomp*      plot.profile.nls*  
+## [22] plot.raster*        plot.spec*          plot.stepfun       
+## [25] plot.stl*           plot.table*         plot.ts            
+## [28] plot.tskernel*      plot.TukeyHSD*     
+## see '?methods' for accessing help and source code
+\end{verbatim}
+
+If no specialised method exists for that class, R will call
+\texttt{summary.default()}
+
+\end{frame}
+
+\begin{frame}[fragile]{Generic functions}
+\protect\hypertarget{generic-functions-2}{}
+
+To find the functions that apply to a class
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{methods}\NormalTok{(}\DataTypeTok{class =} \StringTok{"lm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] add1           alias          anova          case.names     coerce        
+##  [6] confint        cooks.distance deviance       dfbeta         dfbetas       
+## [11] drop1          dummy.coef     effects        extractAIC     family        
+## [16] formula        hatvalues      influence      initialize     kappa         
+## [21] labels         logLik         model.frame    model.matrix   nobs          
+## [26] plot           predict        print          proj           qr            
+## [31] residuals      rstandard      rstudent       show           simulate      
+## [36] slotsFromS3    summary        variable.names vcov          
+## see '?methods' for accessing help and source code
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Generic functions}
+\protect\hypertarget{generic-functions-3}{}
+
+To see the code for a generic function, type
+\texttt{{[}function{]}.{[}class{]}}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dimnames.data.frame}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## function (x) 
+## list(row.names(x), names(x))
+## <bytecode: 0x0b04ce68>
+## <environment: namespace:base>
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Naming conventions}
+\protect\hypertarget{naming-conventions}{}
+
+Because of the \texttt{{[}function{]}.{[}class{]}} syntax, naming
+variables with dots in them is discouraged.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my.favourite.number <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{my_favourite_number <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\DecValTok{1}\NormalTok{) }\CommentTok{# better}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Assignment using \texttt{=} is also discouraged: use
+  \texttt{\textless{}-} instead. (Why?)
+\item
+  \url{google.github.io/styleguide/Rguide.xml} is worth reading
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Help}
+\protect\hypertarget{help}{}
+
+There are many ways to get help with using functions or debugging code
+
+\begin{enumerate}
+\tightlist
+\item
+  The internet
+\end{enumerate}
+
+\includegraphics{../images/google.png}
+
+\end{frame}
+
+\begin{frame}[fragile]{Help}
+\protect\hypertarget{help-1}{}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \texttt{?fn} shows the documentation for \texttt{fn}\ldots{}
+\end{enumerate}
+
+\includegraphics{../images/questionmark.png}
+
+\end{frame}
+
+\begin{frame}[fragile]{Help}
+\protect\hypertarget{help-2}{}
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \texttt{help.search("topic")} searches help pages for ``topic''
+\end{enumerate}
+
+\includegraphics{../images/helpsearch.png}
+
+\end{frame}
+
+\begin{frame}[fragile]{Examples}
+\protect\hypertarget{examples}{}
+
+The documentation pages often show examples (\texttt{example(plot)}) and
+have demos (\texttt{demo(plotmath)}). \texttt{vignette()} opens longer
+worked examples that are great for playing with new packages.
+
+\includegraphics{../images/vignette.png}
+
+\end{frame}
+
+\begin{frame}{Keep in mind}
+\protect\hypertarget{keep-in-mind}{}
+
+\begin{itemize}
+\tightlist
+\item
+  The user of a function assumes responsibility for giving arguments in
+  the correct form
+\item
+  arguments are ordered
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Unnamed arguments are allocated as first arguments
+  \item
+    Named arguments can be anywhere in ordering
+  \end{itemize}
+\item
+  Not supplied arguments assume default value
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Not supplying arguments without a default gives an error message
+  \end{itemize}
+\end{itemize}
+
+Don't get bogged down in reading \emph{all} the documentation --
+experiment and learn from your mistakes instead!
+
+\end{frame}
+
+\begin{frame}[fragile]{Debugging}
+\protect\hypertarget{debugging}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Stare at it until you identify the problem a.k.a. psychic debugging
+\item
+  Breakdown the components until you find the problem (bisection method
+  converges linearly!)
+\item
+  \texttt{traceback()} -- covered later in the course
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]{RStudio}
+\protect\hypertarget{rstudio}{}
+
+\begin{itemize}
+\tightlist
+\item
+  You can use R in a terminal window by typing `R' (once it is
+  installed)
+\item
+  Alternative: RStudio
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Strongly recommended!
+
+    \begin{itemize}
+    \tightlist
+    \item
+      interface for scripts, console, figures
+    \item
+      multiple R sessions in different directories
+    \item
+      Projects!
+    \item
+      RMarkdown (integrating \texttt{R} and Markdown/LaTex)
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Workflow versus product}
+\protect\hypertarget{workflow-versus-product}{}
+
+Your workflow:
+
+\begin{itemize}
+\tightlist
+\item
+  Your operating system
+\item
+  Your code editor (e.g.~RStudio)
+\item
+  The name of your home directory (mine is \texttt{/Users/adwillis})
+\item
+  The code you ran yesterday
+\item
+  The programs you have installed at this time
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Workflow versus product}
+\protect\hypertarget{workflow-versus-product-1}{}
+
+Your product:
+
+\begin{itemize}
+\tightlist
+\item
+  The raw data
+\item
+  The code that needs to be run on the raw data to get results
+
+  \begin{itemize}
+  \tightlist
+  \item
+    including dependencies
+  \end{itemize}
+\item
+  The report that you produce at the end of your analysis
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Workflow versus product}
+\protect\hypertarget{workflow-versus-product-2}{}
+
+``Any R script you write should be written assuming that it will be run
+from a fresh R process with working directory set to the project
+directory. It creates everything it needs, in its own workspace or
+folder, and it touches nothing it did not create\ldots{}'' -- Jenny
+Bryan
+
+\end{frame}
+
+\begin{frame}[fragile]{Workflow versus product}
+\protect\hypertarget{workflow-versus-product-3}{}
+
+You must avoid hardwiring your workflow into your product!
+
+\begin{itemize}
+\tightlist
+\item
+  Every distinct intellectual unit you work on should have its own
+  folder
+
+  \begin{itemize}
+  \tightlist
+  \item
+    every data analysis, every method, every research project, every
+    class
+  \end{itemize}
+\item
+  You can type \texttt{install\_packages} into your console (that's
+  workflow!), but use \texttt{library} in a script (that's product!)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Even better, throw a \texttt{warning} if the version that is
+    installed is not the one you thought
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Workflow versus product}
+\protect\hypertarget{workflow-versus-product-4}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Portable
+
+  \begin{itemize}
+  \tightlist
+  \item
+    other computers
+  \item
+    robust to your own reorganisation
+  \end{itemize}
+\item
+  Polite
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Avoids overwriting or interfering with other projects
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Workflow versus product}
+\protect\hypertarget{workflow-versus-product-5}{}
+
+\includegraphics[width=4.6875in,height=\textheight]{../images/fire.png}
+
+\end{frame}
+
+\begin{frame}[fragile]{RStudio Projects}
+\protect\hypertarget{rstudio-projects}{}
+
+RStudio Projects are the implementation of this
+
+\begin{itemize}
+\tightlist
+\item
+  RStudio creates \texttt{myproj.Rproj}, which goes in your working
+  directory for that project
+\item
+  Double-click on your \texttt{Rproj} file to open a fresh RStudio
+  instance in the correct working directory
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Has the capacity to load your \texttt{RData}
+  \item
+    Create a project with File -\textgreater{} New Project
+  \end{itemize}
+\item
+  You can run multiple R sessions using multiple RStudio Projects at
+  once
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Modern statistical computing}
+\protect\hypertarget{modern-statistical-computing}{}
+
+If any of this seems like overkill
+
+\begin{itemize}
+\tightlist
+\item
+  Cut down 1000 lines to 80 lines with \texttt{tidyverse}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Amy 2017 \textgreater{}\textgreater{} Amy 2013
+  \end{itemize}
+\item
+  ``I had to change exactly one character to redo all of my
+  simulations''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Bryan on the \texttt{simulator}
+  \end{itemize}
+\item
+  ``I didn't know you could run multiple R sessions at once''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Conversation with a (unnamed) fifth year
+  \end{itemize}
+\item
+  ``Could you rerun the entire analysis with this patient added?''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The ideal answer is ``Yes!''
+  \item
+    \emph{This will happen to you}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Break}
+\protect\hypertarget{break}{}
+
+\end{frame}
+
+\begin{frame}{Pop quiz}
+\protect\hypertarget{pop-quiz}{}
+
+What is the distribution of the median of 51 exponentially-distributed
+random variables with rate = 1?
+
+How could we use computing power to help us?
+
+\end{frame}
+
+\begin{frame}{Avoiding math with computers}
+\protect\hypertarget{avoiding-math-with-computers}{}
+
+To understand the distribution of the median of 51
+exponentially-distributed random variables with rate = 1, we can
+
+\begin{itemize}
+\tightlist
+\item
+  Draw 51 Exp(1) random variables, calculate their median
+\item
+  Do this again, and again, and again\ldots{}
+\end{itemize}
+
+We can use the collection of medians to calculate summary statistics,
+draw histograms, do hypothesis testing\ldots{}
+
+\end{frame}
+
+\begin{frame}[fragile]{Avoiding math with computers\ldots{}}
+\protect\hypertarget{avoiding-math-with-computers-1}{}
+
+\ldots{} and learning how to write loops in the process
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{simulations <-}\StringTok{ }\DecValTok{10000}
+\NormalTok{many_medians <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{"numeric"}\NormalTok{, simulations)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{171005}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{simulations) \{}
+\NormalTok{  my_sample <-}\StringTok{ }\KeywordTok{rexp}\NormalTok{(}\DataTypeTok{n =} \DecValTok{51}\NormalTok{, }\DataTypeTok{rate =} \DecValTok{1}\NormalTok{)}
+\NormalTok{  many_medians[i] <-}\StringTok{ }\KeywordTok{median}\NormalTok{(my_sample)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+What is the value of \texttt{many\_medians} if \texttt{i\ =\ 5} triggers
+an error?
+
+\end{frame}
+
+\begin{frame}[fragile]{Avoiding math with computers}
+\protect\hypertarget{avoiding-math-with-computers-2}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(many_medians) }\CommentTok{# actually: 0.70286}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7012355
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(many_medians) }\CommentTok{# actually: 0.01978}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.01985761
+\end{verbatim}
+
+We just calculated the moments of an intractable distribution using
+computing!
+
+\end{frame}
+
+\begin{frame}[fragile]{Avoiding math with computers}
+\protect\hypertarget{avoiding-math-with-computers-3}{}
+
+We could work out almost anything about the sample median in this way!
+
+The distribution of the median of 51 Exp(1) random variables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(many_medians)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{lecture1_files/figure-beamer/unnamed-chunk-24-1.pdf}
+
+\end{frame}
+
+\begin{frame}[fragile]{Reproducible simulations}
+\protect\hypertarget{reproducible-simulations}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{9}\NormalTok{)}
+\KeywordTok{rexp}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.403092 1.479229 1.255778 1.170410
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rexp}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.337385913 0.005871764 0.897366012 0.971816242
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{9}\NormalTok{)}
+\KeywordTok{rexp}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.403092 1.479229 1.255778 1.170410
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}{A note on history}
+\protect\hypertarget{a-note-on-history}{}
+
+Why are permutation/resampling approaches to data analysis modern?
+
+\end{frame}
+
+\begin{frame}{A note on history}
+\protect\hypertarget{a-note-on-history-1}{}
+
+\includegraphics[width=4.6875in,height=\textheight]{../images/book.png}
+
+\end{frame}
+
+\begin{frame}{Possibly containing errors?}
+\protect\hypertarget{possibly-containing-errors}{}
+
+\includegraphics[width=4.6875in,height=\textheight]{../images/review1.png}
+
+\end{frame}
+
+\begin{frame}{Difficult to follow}
+\protect\hypertarget{difficult-to-follow}{}
+
+\includegraphics[width=4.6875in,height=\textheight]{../images/review2.png}
+
+\end{frame}
+
+\begin{frame}{Better just buy a sudoku book}
+\protect\hypertarget{better-just-buy-a-sudoku-book}{}
+
+\includegraphics[width=4.6875in,height=\textheight]{../images/review3.png}
+
+\end{frame}
+
+\begin{frame}[fragile]{Structure of a for loop}
+\protect\hypertarget{structure-of-a-for-loop}{}
+
+\texttt{for()} loops are not terrible, but watch out:
+
+\begin{itemize}
+\tightlist
+\item
+  First make an empty object of the correct dimension (e.g.~vector,
+  matrix, data frame) and \emph{then} fill it in
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Don't forget to store the output of each iteration!
+  \end{itemize}
+\item
+  For large loops and objects, growing the output is a big slowdown
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This is because of the way that memory is handled in R
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{A special set up}
+\protect\hypertarget{a-special-set-up}{}
+
+The only use of the index \texttt{i} was for storage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{simulations <-}\StringTok{ }\DecValTok{10000}
+\NormalTok{many_medians <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{"numeric"}\NormalTok{, simulations)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{171005}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{simulations) \{}
+\NormalTok{  my_sample <-}\StringTok{ }\KeywordTok{rexp}\NormalTok{(}\DataTypeTok{n =} \DecValTok{51}\NormalTok{, }\DataTypeTok{rate =} \DecValTok{1}\NormalTok{)}
+\NormalTok{  many_medians[i] <-}\StringTok{ }\KeywordTok{median}\NormalTok{(my_sample)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile]{A special set up}
+\protect\hypertarget{a-special-set-up-1}{}
+
+Since we are merely doing the same thing again and again, let's use a
+new function to take care of all of the admin
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{171005}\NormalTok{)}
+\NormalTok{many_medians <-}\StringTok{ }\KeywordTok{replicate}\NormalTok{(simulations,}
+                          \KeywordTok{median}\NormalTok{(}\KeywordTok{rexp}\NormalTok{(}\DataTypeTok{n =} \DecValTok{51}\NormalTok{, }\DataTypeTok{rate =} \DecValTok{1}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+The second argument to \texttt{replicate()} is the expression you want
+replicated
+
+\end{frame}
+
+\begin{frame}[fragile]{Loop indices}
+\protect\hypertarget{loop-indices}{}
+
+The index of our loop (\texttt{i}) does not need to be a vector
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(airquality) }\CommentTok{# a built-in dataset}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    153 obs. of  6 variables:
+##  $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
+##  $ Solar.R: int  190 118 149 313 NA NA 299 99 19 194 ...
+##  $ Wind   : num  7.4 8 12.6 11.5 14.3 14.9 8.6 13.8 20.1 8.6 ...
+##  $ Temp   : int  67 72 74 62 56 66 65 59 61 69 ...
+##  $ Month  : int  5 5 5 5 5 5 5 5 5 5 ...
+##  $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Loop indices}
+\protect\hypertarget{loop-indices-1}{}
+
+The index of our loop (\texttt{i}) does not need to be a vector
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (month }\ControlFlowTok{in} \KeywordTok{unique}\NormalTok{(airquality}\OperatorTok{$}\NormalTok{Month)) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{mean}\NormalTok{(airquality}\OperatorTok{$}\NormalTok{Ozone[airquality}\OperatorTok{$}\NormalTok{Month }\OperatorTok{==}\StringTok{ }\NormalTok{month],}
+   \DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\CommentTok{# prints but doesn't store}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 23.61538
+## [1] 29.44444
+## [1] 59.11538
+## [1] 59.96154
+## [1] 31.44828
+\end{verbatim}
+
+We'll see better ways to do this with \texttt{dplyr}
+
+\end{frame}
+
+\begin{frame}[fragile]{Looping over variables: \texttt{apply()}}
+\protect\hypertarget{looping-over-variables-apply}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{apply}\NormalTok{(}\DataTypeTok{X=}\NormalTok{airquality, }\DataTypeTok{MARGIN=}\DecValTok{2}\NormalTok{, }\DataTypeTok{FUN=}\NormalTok{mean, }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Ozone    Solar.R       Wind       Temp      Month        Day 
+##  42.129310 185.931507   9.957516  77.882353   6.993464  15.803922
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{X}: an array, usually a matrix or data frame
+\item
+  \texttt{MARGIN}: the direction. \texttt{MARGIN\ =\ 1} applies the
+  function to each row, \texttt{MARGIN\ =\ 2} applies the function to
+  each column.
+\item
+  \texttt{FUN}: the function to be applied
+\item
+  Any other arguments to be passed to \texttt{FUN}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Defining your own functions}
+\protect\hypertarget{defining-your-own-functions}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean_and_sd <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{c}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(x), }\DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(x))}
+\NormalTok{\}}
+\KeywordTok{apply}\NormalTok{(airquality, }\DecValTok{2}\NormalTok{, mean_and_sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Ozone Solar.R     Wind     Temp    Month      Day
+## mean    NA      NA 9.957516 77.88235 6.993464 15.80392
+## sd      NA      NA 3.523001  9.46527 1.416522  8.86452
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Defining your own functions as wrappers}
+\protect\hypertarget{defining-your-own-functions-as-wrappers}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean_and_sd <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ...) \{ }\KeywordTok{c}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(x, ...),}
+        \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(x, ...)) \}}
+\KeywordTok{apply}\NormalTok{(airquality, }\DecValTok{2}\NormalTok{, mean_and_sd, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Ozone   Solar.R     Wind     Temp    Month      Day
+## mean 42.12931 185.93151 9.957516 77.88235 6.993464 15.80392
+## sd   32.98788  90.05842 3.523001  9.46527 1.416522  8.86452
+\end{verbatim}
+
+Debugging code with ellipses can be tricky! Be cautious\ldots{}
+
+\end{frame}
+
+\begin{frame}{Homework 1 and next week}
+\protect\hypertarget{homework-1-and-next-week}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Slides and Homework 1:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{github.com/adw96/biostat561/lecture1}
+  \end{itemize}
+\item
+  Homework 1 is due next Wednesday at 2:30 p.m.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{github.com/adw96/biostat561/lecture1/homework1.pdf}
+  \end{itemize}
+\item
+  Complete Question 0 by next Monday (office hours!)
+\item
+  Submission via github classroom (instructions included):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{classroom.github.com/classrooms/48962297-biostat561-2019}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{My personal computing setup}
+\protect\hypertarget{my-personal-computing-setup}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Mac user
+\item
+  R via RStudio
+
+  \begin{itemize}
+  \tightlist
+  \item
+    R packages for all methods development
+  \item
+    Rscript (if I have to)
+  \end{itemize}
+\item
+  Atom as my primary text editor
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Markdown, RMarkdown, shell scripts, data files\ldots{}
+  \item
+    works well with git
+  \item
+    also \texttt{vi}
+  \end{itemize}
+\item
+  Manage collaborations via GitHub wherever possible
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Sometimes with overleaf
+  \end{itemize}
+\item
+  Automate tasks using shell scripts (occasionally R)
+\item
+  Avoid Dropbox and Microsoft Word as much is possible
+\item
+  Avoid typing and mousing in favour of voicecoding and eyetracking
+\item
+  Favourite programs include RSIGuard and vimium
+\end{itemize}
+
+\end{frame}
+
+\end{document}
